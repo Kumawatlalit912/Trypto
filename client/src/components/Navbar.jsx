@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { HiMenuAlt4 } from "react-icons/hi";
 import { AiOutlineClose } from "react-icons/ai";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import "./navstyle.css";
 
 // import logo from "../../images/logo.png";
 import logo from "../assets/logo2.png";
@@ -13,6 +14,13 @@ const NavBarItem = ({ title, classprops }) => (
 
 const Navbar = () => {
   const [toggleMenu, setToggleMenu] = React.useState(false);
+  const [links, setLinks] = useState([
+    "https://coinmarketcap.com/",
+    "https://www.binance.com/en/markets",
+    "https://www.livecoinwatch.com/",
+    "https://web3js.readthedocs.io/en/v1.8.1/",
+    "https://crypto.com/university/crypto-wallets",
+  ]);
 
   return (
     <nav className="w-full flex md:justify-center justify-between items-center p-4">
@@ -24,35 +32,24 @@ const Navbar = () => {
           className=" w-40 cursor-pointer"
         />
       </div>
-      <ul
-        className="text-white md:flex hidden list-none flex-row justify-between items-center flex-initial"
-        style={{ fontFamily: "sans-serif" }}
-      >
-        {["RealTime", "Market", "Exchange", "Tutorials", "Wallets"].map(
-          (item, index) => (
-            <NavBarItem
-              key={item + index}
-              title={
-                index === 3 ? (
-                  <a
-                    className="animate"
-                    href="https://web3js.readthedocs.io/en/v1.8.1/"
-                  >
-                    Tutorial
-                  </a>
-                ) : (
-                  <a className="animate " href="https://coinmarketcap.com/">
-                    {item}
-                  </a>
-                )
-              }
-            />
-          )
-        )}
-        <li className="bg-[#2952e3] py-2 px-7 mx-4 rounded-full cursor-pointer hover:bg-[#2546bd]">
-          Login
-        </li>
-      </ul>
+
+      <div className="dec">
+        <div className="abc">
+          <a href={links[0]}>Realtime</a>
+        </div>
+        <div className="abc">
+          <a href={links[1]}>Market</a>
+        </div>
+        <div className="abc">
+          <a href={links[2]}>Exchange</a>
+        </div>
+        <div className="abc">
+          <a href={links[3]}>Tutorial</a>
+        </div>
+        <div className="abc">
+          <a href={links[4]}>Wallets</a>
+        </div>
+      </div>
       <div className="flex relative">
         {!toggleMenu && (
           <HiMenuAlt4
@@ -67,26 +64,6 @@ const Navbar = () => {
             className="text-white md:hidden cursor-pointer"
             onClick={() => setToggleMenu(false)}
           />
-        )}
-        {toggleMenu && (
-          <ul
-            className="z-10 fixed -top-0 -right-2 p-3 w-[70vw] h-screen shadow-2xl md:hidden list-none
-            flex flex-col justify-start items-end rounded-md blue-glassmorphism text-white animate-slide-in"
-            style={{ fontFamily: "sans-serif" }}
-          >
-            <li className="text-xl w-full my-2">
-              <AiOutlineClose onClick={() => setToggleMenu(false)} />
-            </li>
-            {["RealTime", "Market", "Exchange", "Tutorials", "Wallets"].map(
-              (item, index) => (
-                <NavBarItem
-                  key={item + index}
-                  title={<a href="https://coinmarketcap.com/">{item}</a>}
-                  classprops="my-2 text-lg"
-                />
-              )
-            )}
-          </ul>
         )}
       </div>
     </nav>
